@@ -1,4 +1,12 @@
+import Button from "../components/login-page/Button";
+import InputField from "../components/login-page/InputField";
+
 const LoginPage = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log("Login button clicked");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-4/5 bg-white shadow-lg rounded-3xl overflow-hidden flex">
@@ -20,40 +28,19 @@ const LoginPage = () => {
           />
           <h2 className="text-3xl px-10 font-bold mb-6">Welcome Back!</h2>
           <form className="px-10 mb-auto">
-            <div className="mb-4">
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="email"
-              >
-                Email Address
-              </label>
-              <input
-                id="email"
-                type="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-customBlue"
-                placeholder="Enter your email"
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-customBlue"
-                placeholder="Enter your password"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-customBlue text-white py-2 rounded-full hover:bg-gray-800 transition duration-300"
-            >
-              Log In
-            </button>
+            <InputField
+              type="email"
+              name="email"
+              label="Email Address"
+              placeholder="Enter your email"
+            />
+            <InputField
+              type="password"
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+            />
+            <Button label="Log In" onClick={handleClick} />
           </form>
           <div className="px-10 mb-10 text-center">
             <a href="/" className="text-sm text-gray-500">
