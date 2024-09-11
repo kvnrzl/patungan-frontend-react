@@ -1,0 +1,10 @@
+# Node modules tidak perlu disalin ke image
+node_modules
+# Cache npm
+npm-debug.log
+# File dan folder yang tidak dibutuhkan
+build
+.dockerignore
+Dockerfile
+README.md
+.vscode

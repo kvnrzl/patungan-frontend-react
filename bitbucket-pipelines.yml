@@ -1,0 +1,37 @@
+image: atlassian/default-image:3
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          name: Build and Push Docker Image
+          script:
+            - docker build -t ${DOCKER_USERNAME}/patungan-frontend-react:latest .
+            - echo ${DOCKER_PASSWORD} | docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+            - docker push ${DOCKER_USERNAME}/patungan-frontend-react:latest
+          services:
+            - docker
+          caches:
+            - docker
+
+    main:
+      - step:
+          name: Deploy to server
+          deployment: production
+          script:
+            - pipe: atlassian/ssh-run:0.4.0
+              variables:
+                SSH_USER: $SERVER_USER
+                SERVER: $SERVER_IP
+                SSH_KEY: $SSH_KEY
+                COMMAND: |
+                  echo "Pulling latest docker image from Docker Hub ..."
+                  docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                  docker pull $DOCKER_USERNAME/patungan-frontend-react:latest
+                  echo "Stopping and removing old container ..."
+                  docker stop patungan-frontend-react || true
+                  docker rm patungan-frontend-react || true
+                  echo "Removing old untagged images ..."
+                  docker images --filter "dangling=true" -q | xargs -r docker rmi
+                  echo "Running new container ..."
+                  docker run -d --name patungan-frontend-react --network fp-network -p 80:80 -v /nginx/nginx.conf:/etc/nginx/nginx.conf:ro kevinrozal/patungan-frontend-react:latest
