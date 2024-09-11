@@ -1,62 +1,58 @@
-import React from "react";
+import Button from "../components/login-page/Button";
+import InputField from "../components/login-page/InputField";
 
 const Register = () => {
+  const handeClick = (e) => {
+    e.preventDefault();
+    console.log("Register button clicked");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-4/5 lg:w-3/5 bg-white shadow-lg flex overflow-hidden rounded-3xl">
+      <div className="w-4/5 bg-white shadow-lg flex overflow-hidden rounded-3xl">
         {/* Left: Form */}
         <div className="w-full lg:w-1/2 p-8">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">
             Create Account
           </h2>
           <form>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">
-                Full Name
-              </label>
-              <input
-                type="text"
-                className="w-full p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your full name"
-              />
-            </div>
+            <InputField
+              type="text"
+              label="Full Name"
+              name="name"
+              placeholder="Enter your full name"
+            />
 
-            <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                className="w-full p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your email"
-              />
-            </div>
+            <InputField
+              type="email"
+              label="Email Address"
+              name="email"
+              placeholder="Enter your email"
+            />
 
-            <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                className="w-full p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your password"
-              />
-            </div>
+            {/* phone */}
+            <InputField
+              type="text"
+              label="Phone"
+              name="phone"
+              placeholder="Enter your phone number"
+            />
 
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                className="w-full p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Confirm your password"
-              />
-            </div>
+            <InputField
+              type="password"
+              label="Password"
+              name="password"
+              placeholder="Enter your password"
+            />
 
-            <button className="w-full bg-customBlue text-white py-3 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-customBlue">
-              Register
-            </button>
+            <Button label="Register" onClick={handeClick} />
+
+            <div className="px-10 mb-10 text-center">
+              <a href="/" className="text-sm text-gray-500">
+                Already have an account?{" "}
+                <span className="text-customBlue font-bold">Sign In</span>
+              </a>
+            </div>
           </form>
         </div>
 
