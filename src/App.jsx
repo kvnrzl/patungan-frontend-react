@@ -7,8 +7,8 @@ import Register from "./screens/RegisterPage";
 function App() {
   return (
     <div>
-      {/* <LoginPage /> */}
-      <LandingPage />
+      <LoginPage />
+      {/* <LandingPage /> */}
       {/* <Register /> */}
     </div>
   );
