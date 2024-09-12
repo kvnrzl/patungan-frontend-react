@@ -21,32 +21,36 @@ const LoginPage = () => {
 
         {/* Right - Form */}
         <div className="w-1/2 flex flex-col justify-between">
-          <img
-            src="/src/assets/logo/logo-no-background.svg"
-            alt="Patungan Logo"
-            className="h-20 self-end"
-          />
-          <h2 className="text-3xl px-10 font-bold mb-6">Welcome Back!</h2>
-          <form className="px-10 mb-auto">
-            <InputField
-              type="email"
-              name="email"
-              label="Email Address"
-              placeholder="Enter your email"
+          <div className="flex flex-row justify-end">
+            <img
+              src="/src/assets/logo/logo-no-background.svg"
+              alt="Patungan Logo"
+              className="h-20 self-end"
             />
-            <InputField
-              type="password"
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-            />
-            <Button label="Log In" onClick={handleClick} />
-          </form>
-          <div className="px-10 mb-10 text-center">
-            <a href="/" className="text-sm text-gray-500">
-              Don&apos;t have an account?{" "}
-              <span className="text-customBlue font-bold">Sign Up</span>
-            </a>
+          </div>
+          <div className="container m-auto">
+            <form className="px-10">
+              <h2 className="text-3xl font-bold mb-6">Welcome Back!</h2>
+              <InputField
+                type="email"
+                name="email"
+                label="Email Address"
+                placeholder="Enter your email"
+              />
+              <InputField
+                type="password"
+                name="password"
+                label="Password"
+                placeholder="Enter your password"
+              />
+              <Button label="Log In" onClick={handleClick} />
+              <div className="px-10 mb-10 text-center">
+                <a href="/" className="text-sm text-gray-500">
+                  Don&apos;t have an account?{" "}
+                  <span className="text-customBlue font-bold">Sign Up</span>
+                </a>
+              </div>
+            </form>
           </div>
         </div>
       </div>

@@ -11,11 +11,11 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-4/5 bg-white shadow-lg flex overflow-hidden rounded-3xl">
         {/* Left: Form */}
-        <div className="w-full lg:w-1/2 p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">
-            Create Account
-          </h2>
+        <div className="w-full lg:w-1/2 p-8 m-auto">
           <form>
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">
+              Create Account
+            </h2>
             <InputField
               type="text"
               label="Full Name"
