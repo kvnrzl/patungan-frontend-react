@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Header from "../components/landing-page/Header";
+import Header from "../components/home-page/Header";
 import InputField from "../components/form-page/InputField";
 import TextArea from "../components/form-page/TextArea";
 import Select from "../components/form-page/Select";

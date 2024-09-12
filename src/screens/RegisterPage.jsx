@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../components/login-page/Button";
 import InputField from "../components/login-page/InputField";
 
@@ -48,10 +49,12 @@ const Register = () => {
             <Button label="Register" onClick={handeClick} />
 
             <div className="px-10 mb-10 text-center">
-              <a href="/" className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500">
                 Already have an account?{" "}
-                <span className="text-customBlue font-bold">Sign In</span>
-              </a>
+                <Link to="/login" className="text-customBlue font-bold">
+                  Sign In
+                </Link>
+              </span>
             </div>
           </form>
         </div>

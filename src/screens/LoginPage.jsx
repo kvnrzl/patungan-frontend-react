@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../components/login-page/Button";
 import InputField from "../components/login-page/InputField";
 
@@ -22,11 +23,13 @@ const LoginPage = () => {
         {/* Right - Form */}
         <div className="w-1/2 flex flex-col justify-between">
           <div className="flex flex-row justify-end">
-            <img
-              src="/src/assets/logo/logo-no-background.svg"
-              alt="Patungan Logo"
-              className="h-20 self-end"
-            />
+            <Link to={"/"}>
+              <img
+                src="/src/assets/logo/logo-no-background.svg"
+                alt="Patungan Logo"
+                className="h-20 self-end"
+              />
+            </Link>
           </div>
           <div className="container m-auto">
             <form className="px-10">
@@ -45,10 +48,10 @@ const LoginPage = () => {
               />
               <Button label="Log In" onClick={handleClick} />
               <div className="px-10 mb-10 text-center">
-                <a href="/" className="text-sm text-gray-500">
+                <Link to="/register" className="text-sm text-gray-500">
                   Don&apos;t have an account?{" "}
                   <span className="text-customBlue font-bold">Sign Up</span>
-                </a>
+                </Link>
               </div>
             </form>
           </div>

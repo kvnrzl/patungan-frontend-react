@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 const PlanCard = ({
   category,
@@ -52,10 +54,19 @@ const PlanCard = ({
       </p>
 
       {/* create button */}
-      <button className="bg-customBlue text-white px-4 py-2 rounded-lg mt-4">
-        Yuk <span className="font-vt323 text-xl">Patungan</span>{" "}
-        <span className="material-symbols-outlined text-xs">favorite</span>
-      </button>
+      {/* <Link to="/campaign/donate"> */}
+      <Link
+        to="/campaign/donate"
+        className="bg-customBlue text-white w-full px-4 py-2 rounded-lg mt-4"
+      >
+        <div className="flex flex-row justify-center">
+          <p>
+            Yuk <span className="font-vt323 text-xl">Patungan</span>{" "}
+            <span className="material-symbols-outlined text-xs">favorite</span>
+          </p>
+        </div>
+      </Link>
+      {/* </Link> */}
     </div>
   );
 };

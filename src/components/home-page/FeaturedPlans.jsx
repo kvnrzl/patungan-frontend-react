@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PlanCard from "./PlanCard";
 
 const FeaturedPlans = () => {
@@ -56,11 +57,11 @@ const FeaturedPlans = () => {
         </span>{" "}
         & Saling Berbagi
       </h2>
-      <div className="flex justify-end mb-3 mr-5">
+      <Link to="/campaign" className="flex justify-end mb-3 mr-5">
         <button className="px-5 py-2 border bg-gray-200 text-black text-sm rounded-full">
           {`Lihat lainnya >`}
         </button>
-      </div>
+      </Link>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-5">
         {plans.map((plan, index) => (
           <PlanCard
