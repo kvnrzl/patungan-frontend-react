@@ -13,10 +13,10 @@ const Header = () => {
               kevin@gmail.commmmmmmmmmmmm
             </a>
           </div>
-          <button className="px-4 py-2 border border-gray-300 rounded-full">
+          <button className="px-4 py-2 border border-gray-300 rounded-full hover:bg-gray-200 focus:outline-none">
             Log in
           </button>
-          <button className="px-4 py-2 bg-customBlue text-white rounded-full">
+          <button className="px-4 py-2 bg-customBlue text-white rounded-full hover:bg-blue-700 focus:outline-none">
             Sign Up
           </button>
         </div>

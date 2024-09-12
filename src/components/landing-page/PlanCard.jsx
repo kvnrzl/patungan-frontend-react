@@ -32,7 +32,7 @@ const PlanCard = ({ type, title, rate, description, duration, src }) => {
         10.000.000
       </p>
       {/* create button */}
-      <button className="bg-customBlue text-white px-4 py-2 rounded-lg mt-4">
+      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700 focus:outline-none">
         Yuk <span className="font-vt323 text-xl">Patungan</span>{" "}
         <span className="material-symbols-outlined text-xs">favorite</span>
       </button>
