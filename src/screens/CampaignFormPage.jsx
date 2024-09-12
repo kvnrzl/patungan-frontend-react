@@ -60,19 +60,6 @@ const CampaignFormPage = () => {
 
           <form onSubmit={handleSubmit}>
             {/* Judul Campaign */}
-            {/* <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Judul Campaign
-              </label>
-              <input
-                type="text"
-                placeholder="Masukkan judul campaign"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div> */}
             <InputField
               label="Judul Campaign"
               name="title"
@@ -83,19 +70,6 @@ const CampaignFormPage = () => {
             />
 
             {/* Deskripsi */}
-            {/* <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Deskripsi Campaign
-              </label>
-              <textarea
-                placeholder="Masukkan deskripsi campaign"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                rows="6"
-                required
-              />
-            </div> */}
             <TextArea
               label="Deskripsi Campaign"
               value={description}
@@ -105,19 +79,6 @@ const CampaignFormPage = () => {
             />
 
             {/* Target Dana */}
-            {/* <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Jumlah Target Dana
-              </label>
-              <input
-                type="text"
-                placeholder="Masukkan target dana (contoh: 50000)"
-                value={target}
-                onChange={handleTargetChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div> */}
             <InputField
               label="Jumlah Target Dana"
               name="target"

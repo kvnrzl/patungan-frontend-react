@@ -1,4 +1,5 @@
-const Textarea = ({ name, label, value, onChange }) => {
+/* eslint-disable react/prop-types */
+const Textarea = ({ name, label, value, onChange, rows = 6 }) => {
   return (
     <div className="mb-4">
       <label
@@ -13,7 +14,7 @@ const Textarea = ({ name, label, value, onChange }) => {
         name={name}
         onChange={onChange}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        rows="6"
+        rows={rows}
         required
       />
     </div>
