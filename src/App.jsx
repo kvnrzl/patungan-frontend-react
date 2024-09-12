@@ -9,7 +9,7 @@ function App() {
     <div>
       <LoginPage />
       {/* <LandingPage /> */}
-      {/* <Register /> */}
+      <Register />
     </div>
   );
 }
