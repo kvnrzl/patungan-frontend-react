@@ -1,7 +1,6 @@
-import React from "react";
-import PlanCard from "../components/landing-page/PlanCard";
-import Header from "../components/landing-page/Header";
-import Footer from "../components/landing-page/Footer";
+import PlanCard from "../components/home-page/PlanCard";
+import Header from "../components/home-page/Header";
+import Footer from "../components/home-page/Footer";
 
 const campaigns = [
   {
@@ -93,7 +92,7 @@ const CampaignListPage = () => {
     <>
       <Header />
       <div className="max-w-7xl mx-auto p-4">
-        <h2 className="text-2xl font-semibold mb-4">Daftar Campaign</h2>
+        <h2 className="text-2xl font-semibold mb-4">Daftar Patungan</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {campaigns.map((campaign, index) => (
             <div key={index}>

@@ -1,15 +1,11 @@
-// import HeroSlider from "./components/landing-page/HeroSlider";
-import { useEffect, useState } from "react";
-import LandingPage from "./screens/LandingPage";
-import LoginPage from "./screens/LoginPage";
-import Register from "./screens/RegisterPage";
+import Router from "./routers/Router";
+import CampaignDetailPage from "./screens/CampaignDetailPage";
 
 function App() {
   return (
     <div>
-      <LoginPage />
-      {/* <LandingPage /> */}
-      <Register />
+      <Router />
+      {/* <CampaignDetailPage /> */}
     </div>
   );
 }
