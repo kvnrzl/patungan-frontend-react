@@ -3,34 +3,47 @@ import PlanCard from "./PlanCard";
 const FeaturedPlans = () => {
   const plans = [
     {
-      type: "PENDIDIKAN",
-      title: "Money Momentum Acakaduduud",
-      description:
-        "Total Premium helps you start lower investments with great savings. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      rate: "72%",
-      duration: "5yr CAGR",
+      id: 1,
+      title: "Money Momentum...",
+      category: "Pendidikan",
+      description: "Total Premium helps you start lower investments...",
+      progress: 72,
+      target: 10000000,
+      collected: 50000,
+      image: "src/assets/campaign1.jpg",
     },
     {
-      type: "SOSIAL",
+      id: 2,
       title: "Long-Term",
-      description: "Creative vision. To get started, imagine your dream life.",
-      rate: "44%",
-      duration: "25yr CAGR",
-    },
-    {
-      type: "BENCANA",
-      title: "Focussed",
+      category: "Sosial",
       description:
-        "Be focused. Life planning, however, can serve as roadmaps or goals.",
-      rate: "12%",
-      duration: "1yr CAGR",
+        "Creative vision. To get started, imagine your dream life...",
+      progress: 44,
+      target: 10000000,
+      collected: 50000,
+      image: "src/assets/campaign2.jpg",
     },
     {
-      type: "PLANS",
-      title: "Fixed Income",
-      description: "Get multiple benefits and returns & guaranteed returns.",
-      rate: "0%",
-      duration: "5yr CAGR",
+      id: 3,
+      title: "Long-Term",
+      category: "Sosial",
+      description:
+        "Creative vision. To get started, imagine your dream life...",
+      progress: 44,
+      target: 10000000,
+      collected: 50000,
+      image: "src/assets/campaign2.jpg",
+    },
+    {
+      id: 4,
+      title: "Long-Term",
+      category: "Sosial",
+      description:
+        "Creative vision. To get started, imagine your dream life...",
+      progress: 44,
+      target: 10000000,
+      collected: 50000,
+      image: "src/assets/campaign2.jpg",
     },
   ];
 
@@ -52,12 +65,17 @@ const FeaturedPlans = () => {
         {plans.map((plan, index) => (
           <PlanCard
             key={index}
-            type={plan.type}
+            category={plan.category}
             title={plan.title}
+            image={`https://picsum.photos/200?random=${index}`}
             description={plan.description}
-            rate={plan.rate}
-            duration={plan.duration}
-            src={`https://picsum.photos/200?random=${index}`}
+            progress={
+              plan.target === 0
+                ? 0
+                : Math.round((plan.collected / plan.target) * 100)
+            }
+            target={plan.target}
+            collected={plan.collected}
           />
         ))}
       </div>
