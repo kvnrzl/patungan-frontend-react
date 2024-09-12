@@ -18,7 +18,7 @@ const campaign = {
 function App() {
   return (
     <div>
-      {/* <LoginPage /> */}
+      <LoginPage />
       {/* <LandingPage /> */}
       {/* <CampaignDetailPage campaign={campaign} /> */}
       <CampaignFormPage />
