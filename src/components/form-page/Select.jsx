@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const Select = ({ name, label, options, error, ...rest }) => {
+const Select = ({ name, label, options, error, onChange, ...rest }) => {
   return (
     <div className="mb-4">
       <label
@@ -13,6 +13,7 @@ const Select = ({ name, label, options, error, ...rest }) => {
         name={name}
         id={name}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        onChange={onChange}
       >
         <option value="" disabled>
           Pilih kategori

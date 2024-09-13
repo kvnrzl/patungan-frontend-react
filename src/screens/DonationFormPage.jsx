@@ -1,14 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../components/form-page/InputField";
 import TextArea from "../components/form-page/TextArea";
 import SubmitButton from "../components/form-page/SubmitButton";
+import {
+  createDonationGuest,
+  createDonationRegistered,
+} from "../redux/actions/donationAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { createPayment } from "../redux/actions/paymentAction";
 
 const DonationFormPage = () => {
-  const [nominal, setNominal] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [comment, setComment] = useState("");
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();
+  const { id } = useParams(); // Mengambil id dari URL
+
+  // Get state from Redux
+  const donationData = useSelector((state) => state.donations.data);
+  const paymentData = useSelector((state) => state.payments.data);
+
+  const isRequired = localStorage.getItem("token") ? false : true;
+
+  const [formData, setFormData] = useState({
+    amount: "",
+    name: "",
+    email: "",
+    phone: "",
+    comment: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle Nominal Input Change
+  const handleNominalChange = (e) => {
+    const rawValue = e.target.value.replace(/[^\d]/g, "");
+    setFormData((prevData) => ({
+      ...prevData,
+      amount: formatCurrency(rawValue),
+    }));
+  };
 
   // Function to format number as currency (Rp)
   const formatCurrency = (value) => {
@@ -21,18 +57,62 @@ const DonationFormPage = () => {
     }).format(number);
   };
 
-  // Handle Nominal Input Change
-  const handleNominalChange = (e) => {
-    const rawValue = e.target.value.replace(/[^\d]/g, "");
-    setNominal(formatCurrency(rawValue));
-  };
+  // useEffect to check paymentData for redirection
+  useEffect(() => {
+    if (
+      paymentData &&
+      paymentData.snap_response &&
+      paymentData.snap_response.redirect_url
+    ) {
+      const redirectUrl = paymentData.snap_response.redirect_url;
+      window.location.href = redirectUrl; // Redirect to the payment page
+    }
+  }, [paymentData]);
 
-  // Handle Form Submit (for now, just log the values)
-  const handleSubmit = (e) => {
+  // Handle Form Submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = { nominal, name, email, phone, comment };
     console.log("Form Data Submitted:", formData);
-    // You can handle the submission to backend here
+
+    // Parse the amount to integer (without currency formatting)
+    const formattedAmount = parseInt(
+      String(formData.amount).replace(/\D/g, "")
+    );
+    const updatedFormData = { ...formData, amount: formattedAmount };
+
+    try {
+      let donationResponse;
+      // Dispatch donation action based on token presence
+      if (localStorage.getItem("token")) {
+        console.log("User is registered");
+        donationResponse = await dispatch(
+          createDonationRegistered(updatedFormData, id)
+        );
+      } else {
+        console.log("User is a guest");
+        donationResponse = await dispatch(
+          createDonationGuest(updatedFormData, id)
+        );
+      }
+
+      // After donation is created, dispatch payment action
+      let paymentResponse;
+      console.log(donationResponse);
+      if (donationResponse) {
+        const donationId = donationResponse.ID; // Assuming response contains donation ID
+        const paymentData = {
+          donation_id: donationId,
+          amount: formattedAmount,
+          currency: "IDR",
+        };
+        console.log("Creating payment for donation:", paymentData);
+        paymentResponse = await dispatch(createPayment(paymentData));
+      }
+
+      console.log(paymentResponse);
+    } catch (error) {
+      console.error("Error during donation/payment process:", error);
+    }
   };
 
   return (
@@ -49,8 +129,8 @@ const DonationFormPage = () => {
           <InputField
             label="Nominal Transaksi"
             placeholder="Masukkan nominal (contoh: 50000)"
-            value={nominal}
-            name="nominal"
+            value={formData.amount}
+            name="amount"
             onChange={handleNominalChange}
             required
           />
@@ -59,39 +139,39 @@ const DonationFormPage = () => {
           <InputField
             label="Nama"
             placeholder="Masukkan nama"
-            value={name}
+            value={formData.name}
             name="name"
-            onChange={(e) => setName(e.target.value)}
-            required
+            onChange={handleInputChange}
+            isrequired={isRequired}
           />
 
           {/* Email */}
           <InputField
             label="Email"
             placeholder="Masukkan email"
-            value={email}
+            value={formData.email}
             name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={handleInputChange}
+            isrequired={isRequired}
           />
 
           {/* Phone */}
           <InputField
             label="Phone"
             placeholder="Masukkan nomor telepon"
-            value={phone}
+            value={formData.phone}
             name="phone"
-            onChange={(e) => setPhone(e.target.value)}
-            required
+            onChange={handleInputChange}
+            isRequired={isRequired}
           />
 
           {/* Komentar / Dukungan (Opsional) */}
           <TextArea
             label="Komentar / Dukungan (Opsional)"
-            value={comment}
+            value={formData.comment}
             name="comment"
             rows={4}
-            onChange={(e) => setComment(e.target.value)}
+            onChange={handleInputChange}
           />
 
           {/* Submit Button */}

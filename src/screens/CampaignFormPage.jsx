@@ -4,13 +4,37 @@ import InputField from "../components/form-page/InputField";
 import TextArea from "../components/form-page/TextArea";
 import Select from "../components/form-page/Select";
 import SubmitButton from "../components/form-page/SubmitButton";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const API_URL = "http://141.11.25.60:9090/api/v1";
 
 const CampaignFormPage = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [target, setTarget] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [category, setCategory] = useState("");
+  const navigateTo = useNavigate();
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    target: "",
+    endDate: "",
+    category: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleTargetChange = (e) => {
+    const rawValue = e.target.value.replace(/[^\d]/g, "");
+    setFormData((prevData) => ({
+      ...prevData,
+      target: formatCurrency(rawValue),
+    }));
+  };
 
   // Function to format number as currency (Rp)
   const formatCurrency = (value) => {
@@ -23,24 +47,48 @@ const CampaignFormPage = () => {
     }).format(number);
   };
 
-  // Handle Target Dana Input Change
-  const handleTargetChange = (e) => {
-    const rawValue = e.target.value.replace(/[^\d]/g, "");
-    setTarget(formatCurrency(rawValue));
-  };
-
   // Handle Form Submit (for now, just log the values)
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
-      title,
-      description,
-      target,
-      endDate,
-      category,
+
+    const token = localStorage.getItem("token");
+
+    formData.endDate = new Date(formData.endDate).toISOString();
+
+    formData.target = parseInt(String(formData.target).replace(/\D/g, ""));
+
+    formData.category = parseInt(formData.category);
+
+    // remove category and change to categoryID
+    const newFormData = {
+      ...formData,
+      categoryID: formData.category,
     };
-    console.log("Campaign Form Data Submitted:", formData);
+
+    console.log(newFormData);
     // You can handle the submission to backend here
+    const response = await axios.post(`${API_URL}/campaigns`, newFormData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const responseData = await response.data.data;
+    console.log(responseData);
+
+    if (response.data.status === "success") {
+      alert("Campaign berhasil dibuat");
+      setFormData({
+        title: "",
+        description: "",
+        target: "",
+        endDate: "",
+        category: "",
+      });
+
+      navigateTo("/campaign");
+    } else {
+      alert("Campaign gagal dibuat");
+    }
   };
 
   const categories = [
@@ -64,17 +112,17 @@ const CampaignFormPage = () => {
               label="Judul Campaign"
               name="title"
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={formData.title}
+              onChange={handleChange}
               required
             />
 
             {/* Deskripsi */}
             <TextArea
               label="Deskripsi Campaign"
-              value={description}
+              value={formData.description}
               name="description"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={handleChange}
               required
             />
 
@@ -83,7 +131,7 @@ const CampaignFormPage = () => {
               label="Jumlah Target Dana"
               name="target"
               type="text"
-              value={target}
+              value={formData.target}
               onChange={handleTargetChange}
               required
             />
@@ -93,8 +141,8 @@ const CampaignFormPage = () => {
               label="Tanggal Berakhir Campaign"
               name="endDate"
               type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              value={formData.endDate}
+              onChange={handleChange}
               required
             />
 
@@ -103,6 +151,7 @@ const CampaignFormPage = () => {
               label="Kategori Campaign"
               name="category"
               options={categories}
+              onChange={handleChange}
             />
 
             {/* Submit Button */}

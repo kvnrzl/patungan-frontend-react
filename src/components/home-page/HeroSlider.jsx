@@ -13,7 +13,11 @@ const images = [
     // src: "/src/assets/ben-white-PAiVzSmYy-c-unsplash.jpg",
     link: "/",
   },
-  // { id: 3, src: "https://via.placeholder.com/800x400?text=Slide+3", link: "/" },
+  {
+    id: 3,
+    src: "https://picsum.photos/800/300",
+    link: "/",
+  },
 ];
 
 const HeroSlider = () => {

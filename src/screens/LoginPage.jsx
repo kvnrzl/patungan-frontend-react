@@ -1,11 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, replace, useNavigate } from "react-router-dom";
 import Button from "../components/login-page/Button";
 import InputField from "../components/login-page/InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { userLogin } from "../redux/actions/userAction";
+import { store } from "../redux/store";
 
 const LoginPage = () => {
-  const handleClick = (e) => {
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();
+
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleClick = async (e) => {
     e.preventDefault();
     console.log("Login button clicked");
+
+    const token = await dispatch(userLogin(userData));
+
+    console.log(token);
+    if (token) {
+      localStorage.setItem("token", token);
+
+      navigateTo("/", { replace: true });
+
+      console.log("Login success");
+    } else {
+      console.log("Login failed");
+      alert("Login Failed");
+    }
+  };
+
+  const handleChange = (event) => {
+    console.log(event);
+    const { name, value, type } = event.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: type === "file" ? event.target.files[0] : value,
+    }));
   };
 
   return (
@@ -37,12 +72,16 @@ const LoginPage = () => {
               <InputField
                 type="email"
                 name="email"
+                value={userData.email}
+                onChange={handleChange}
                 label="Email Address"
                 placeholder="Enter your email"
               />
               <InputField
                 type="password"
                 name="password"
+                value={userData.password}
+                onChange={handleChange}
                 label="Password"
                 placeholder="Enter your password"
               />
