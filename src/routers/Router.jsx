@@ -7,6 +7,7 @@ import DonationFormPage from "../screens/DonationFormPage";
 import CampaignFormPage from "../screens/CampaignFormPage";
 import CampaignListPage from "../screens/CampaignListPage";
 import CampaignDetailPage from "../screens/CampaignDetailPage";
+import MidtransPayment from "../components/payment/MidtransPayment";
 
 // Fungsi untuk cek autentikasi
 const isAuthenticated = () => {
@@ -39,7 +40,7 @@ const Router = () => {
       element: <AuthRedirectRoute element={<RegisterPage />} />,
     },
     {
-      path: "/campaign/donate",
+      path: "/campaign/:id/donate",
       element: <DonationFormPage />,
     },
     {
@@ -47,8 +48,12 @@ const Router = () => {
       element: <CampaignListPage />,
     },
     {
-      path: "/campaign/detail",
+      path: "/campaign/:id/detail",
       element: <CampaignDetailPage />,
+    },
+    {
+      path: "/payment/:token",
+      element: <MidtransPayment />,
     },
   ];
 

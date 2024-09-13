@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const PlanCard = ({
+  id,
   category,
   title,
   image,
@@ -23,10 +24,12 @@ const PlanCard = ({
   return (
     <div className="flex flex-col h-full min-h-full border p-6 rounded-xl bg-white shadow-md text-left">
       {/* category */}
-      <p className="text-sm font-semibold text-gray-500">{category}</p>
+      <Link to={`/campaign/${id}/detail`}>
+        <p className="text-sm font-semibold text-gray-500">{category}</p>
 
-      {/* title */}
-      <h3 className="text-2xl font-bold mb-2 line-clamp-1">{title}</h3>
+        {/* title */}
+        <h3 className="text-2xl font-bold mb-2 line-clamp-1">{title}</h3>
+      </Link>
 
       {/* cover image */}
       <img src={image} alt="plan" className="max-w-full h-40 rounded-lg mb-4" />
@@ -56,7 +59,7 @@ const PlanCard = ({
       {/* create button */}
       {/* <Link to="/campaign/donate"> */}
       <Link
-        to="/campaign/donate"
+        to={`/campaign/${id}/donate`}
         className="bg-customBlue text-white w-full px-4 py-2 rounded-lg mt-4"
       >
         <div className="flex flex-row justify-center">

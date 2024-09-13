@@ -1,11 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/login-page/Button";
 import InputField from "../components/login-page/InputField";
+import { userRegister } from "../redux/actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isError = useSelector((state) => state.users.error);
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
   const handeClick = (e) => {
     e.preventDefault();
     console.log("Register button clicked");
+
+    dispatch(userRegister(userData));
+
+    if (!isError) {
+      console.log("Register success");
+      alert("Register success");
+      navigate("/login", { replace: true });
+    } else {
+      console.log("Register failed");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -20,6 +51,8 @@ const Register = () => {
             <InputField
               type="text"
               label="Full Name"
+              value={userData.name}
+              onChange={handleChange}
               name="name"
               placeholder="Enter your full name"
             />
@@ -27,6 +60,8 @@ const Register = () => {
             <InputField
               type="email"
               label="Email Address"
+              value={userData.email}
+              onChange={handleChange}
               name="email"
               placeholder="Enter your email"
             />
@@ -35,6 +70,8 @@ const Register = () => {
             <InputField
               type="text"
               label="Phone"
+              value={userData.phone}
+              onChange={handleChange}
               name="phone"
               placeholder="Enter your phone number"
             />
@@ -42,6 +79,8 @@ const Register = () => {
             <InputField
               type="password"
               label="Password"
+              value={userData.password}
+              onChange={handleChange}
               name="password"
               placeholder="Enter your password"
             />
