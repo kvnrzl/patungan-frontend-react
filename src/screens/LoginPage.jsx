@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { userLogin } from "../redux/actions/userAction";
 import { store } from "../redux/store";
+import logo from "../assets/logo/logo-no-background.svg";
+import welcomeBackImg from "../assets/Hello-cuate.svg";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -48,22 +50,14 @@ const LoginPage = () => {
       <div className="w-4/5 bg-white shadow-lg rounded-3xl overflow-hidden flex">
         {/* Left - Image */}
         <div className="w-1/2 bg-gray-100 flex items-center justify-center">
-          <img
-            src="/src/assets/Hello-cuate.svg"
-            alt="Welcome Back"
-            className="w-3/4"
-          />
+          <img src={welcomeBackImg} alt="Welcome Back" className="w-3/4" />
         </div>
 
         {/* Right - Form */}
         <div className="w-1/2 flex flex-col justify-between">
           <div className="flex flex-row justify-end">
             <Link to={"/"}>
-              <img
-                src="/src/assets/logo/logo-no-background.svg"
-                alt="Patungan Logo"
-                className="h-20 self-end"
-              />
+              <img src={logo} alt="Patungan Logo" className="h-20 self-end" />
             </Link>
           </div>
           <div className="container m-auto">
