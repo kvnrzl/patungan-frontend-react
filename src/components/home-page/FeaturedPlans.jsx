@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PlanCard from "./PlanCard";
 import { useEffect } from "react";
 import { getCampaigns } from "../../redux/actions/campaignAction";
@@ -68,11 +68,9 @@ const FeaturedPlans = () => {
         </span>{" "}
         & Saling Berbagi
       </h2>
-      {isLoading && <p className="flex flex-row justify-center">Loading...</p>}
-      {campaigns === undefined && (
-        <p className="flex flex-row justify-center">There is no campaign</p>
-      )}
-      {campaigns !== undefined && (
+      {isLoading ? (
+        <p className="flex flex-row justify-center">Loading...</p>
+      ) : campaigns && campaigns.length > 0 ? (
         <div className="px-10">
           <Link to="/campaign" className="flex justify-end mb-3 mr-5">
             <button className="px-5 py-2 border bg-gray-200 text-black text-sm rounded-full">
@@ -102,6 +100,8 @@ const FeaturedPlans = () => {
               ))}
           </div>
         </div>
+      ) : (
+        <p className="flex flex-row justify-center">There is no campaign</p>
       )}
     </section>
   );

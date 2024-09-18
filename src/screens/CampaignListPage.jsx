@@ -22,35 +22,36 @@ const CampaignListPage = () => {
       <Header />
       <div className="max-w-7xl mx-auto p-4">
         <h2 className="text-2xl font-semibold mb-4">Daftar Patungan</h2>
-        {isLoading && (
-          <p className="flex flex-row justify-center">Loading...</p>
-        )}
-        {campaigns === undefined && (
-          <p className="flex flex-row justify-center">There is no campaign</p>
-        )}
-        {campaigns !== undefined && (
-          // <p>There are {campaigns.length} campaigns</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {campaigns.map((campaign, index) => (
-              <div key={index}>
-                <PlanCard
-                  id={campaign.ID}
-                  category={campaign.category.name}
-                  title={campaign.title}
-                  image={`https://picsum.photos/200?random=${index}`}
-                  description={campaign.description}
-                  progress={
-                    campaign.target === 0
-                      ? 0
-                      : Math.round((campaign.collected / campaign.target) * 100)
-                  }
-                  target={campaign.target}
-                  collected={campaign.collected}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        <div>
+          {isLoading ? (
+            <p className="flex flex-row justify-center">Loading...</p>
+          ) : campaigns && campaigns.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {campaigns.map((campaign, index) => (
+                <div key={index}>
+                  <PlanCard
+                    id={campaign.ID}
+                    category={campaign.category.name}
+                    title={campaign.title}
+                    image={`https://picsum.photos/200?random=${index}`}
+                    description={campaign.description}
+                    progress={
+                      campaign.target === 0
+                        ? 0
+                        : Math.round(
+                            (campaign.collected / campaign.target) * 100
+                          )
+                    }
+                    target={campaign.target}
+                    collected={campaign.collected}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="flex flex-row justify-center">There is no campaign</p>
+          )}
+        </div>
       </div>
       {campaigns !== undefined && <Footer />}
     </>
