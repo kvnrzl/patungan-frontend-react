@@ -22,9 +22,13 @@ const CampaignListPage = () => {
       <Header />
       <div className="max-w-7xl mx-auto p-4">
         <h2 className="text-2xl font-semibold mb-4">Daftar Patungan</h2>
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && campaigns.length === 0 && <p>There is no campaign</p>}
-        {!isLoading && campaigns.length > 0 && (
+        {isLoading && (
+          <p className="flex flex-row justify-center">Loading...</p>
+        )}
+        {campaigns === undefined && (
+          <p className="flex flex-row justify-center">There is no campaign</p>
+        )}
+        {campaigns !== undefined && (
           // <p>There are {campaigns.length} campaigns</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {campaigns.map((campaign, index) => (
@@ -48,7 +52,7 @@ const CampaignListPage = () => {
           </div>
         )}
       </div>
-      <Footer />
+      {campaigns !== undefined && <Footer />}
     </>
   );
 };
