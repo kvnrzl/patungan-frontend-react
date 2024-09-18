@@ -4,6 +4,7 @@ import InputField from "../components/login-page/InputField";
 import { userRegister } from "../redux/actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import welcomeImg from "../assets/Welcome-cuate.svg";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -101,7 +102,7 @@ const Register = () => {
         {/* Right: Image */}
         <div className="hidden lg:block w-1/2 bg-gray-100">
           <img
-            src="/src/assets/Welcome-cuate.svg"
+            src={welcomeImg}
             alt="Welcome"
             className="w-full h-full object-contain"
           />
