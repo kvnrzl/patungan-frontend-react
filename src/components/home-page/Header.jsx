@@ -9,13 +9,8 @@ const Header = () => {
   const user = useSelector((state) => state.users.user);
   const isLoading = useSelector((state) => state.users.loading);
 
-  // const user = useRef(null);
   const fetchUserProfile = useCallback(async () => {
     await dispatch(getUserProfile());
-
-    // console.log(response);
-    // user.current = response;
-    // console.log(user.current);
   }, [dispatch]);
 
   useEffect(() => {
@@ -26,12 +21,16 @@ const Header = () => {
     e.preventDefault();
     console.log("Logout button clicked");
 
-    // dispatch(userLogout());
     if (window.confirm("Are you sure you want to logout?")) {
-      dispatch(userLogout({ email: user.email }));
-      console.log("Logout success");
-      localStorage.removeItem("token");
-      navigateTo("/login", { replace: true });
+      // Pastikan `user` tidak null sebelum mengakses `email`
+      if (user && user.email) {
+        dispatch(userLogout({ email: user.email }));
+        console.log("Logout success");
+        localStorage.removeItem("token");
+        navigateTo("/login", { replace: true });
+      } else {
+        console.log("Logout failed: No user data");
+      }
     } else {
       console.log("Logout failed");
     }
@@ -60,13 +59,14 @@ const Header = () => {
                 onClick={handleLogout}
                 className="border px-4 py-2 rounded-md max-w-40 truncate"
               >
-                {isLoading && (
+                {isLoading ? (
                   <p className="flex flex-row justify-center">Loading...</p>
-                )}
-                {user !== undefined && (
-                  <a href="" className="text-gray-500">
-                    {user.email.split("@")[0]}
+                ) : user && user.email ? (
+                  <a href="#" className="text-gray-500">
+                    {user.email}
                   </a>
+                ) : (
+                  <p className="flex flex-row justify-center">User</p>
                 )}
               </button>
             </>
