@@ -68,15 +68,17 @@ const FeaturedPlans = () => {
         </span>{" "}
         & Saling Berbagi
       </h2>
-      <div className="px-10">
-        <Link to="/campaign" className="flex justify-end mb-3 mr-5">
-          <button className="px-5 py-2 border bg-gray-200 text-black text-sm rounded-full">
-            {`Lihat lainnya >`}
-          </button>
-        </Link>
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && campaigns.length === 0 && <p>There is no campaign</p>}
-        {!isLoading && campaigns.length > 0 && (
+      {isLoading && <p className="flex flex-row justify-center">Loading...</p>}
+      {campaigns === undefined && (
+        <p className="flex flex-row justify-center">There is no campaign</p>
+      )}
+      {campaigns !== undefined && (
+        <div className="px-10">
+          <Link to="/campaign" className="flex justify-end mb-3 mr-5">
+            <button className="px-5 py-2 border bg-gray-200 text-black text-sm rounded-full">
+              {`Lihat lainnya >`}
+            </button>
+          </Link>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-5">
             {campaigns
               .sort(() => Math.random() - 0.5)
@@ -99,8 +101,8 @@ const FeaturedPlans = () => {
                 />
               ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   );
 };

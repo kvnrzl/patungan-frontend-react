@@ -41,7 +41,7 @@ const PlanCard = ({
       <div className="w-full mt-auto border border-gray-400 rounded-full">
         <div
           className="bg-customLightBlue text-xs font-medium text-gray-600 text-center p-0.5 leading-none rounded-full"
-          style={{ width: `${progress}%` }}
+          style={{ width: `${Math.min(progress, 100)}%` }}
         >
           {" "}
           {progress}%

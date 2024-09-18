@@ -7,6 +7,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const user = useSelector((state) => state.users.user);
+  const isLoading = useSelector((state) => state.users.loading);
 
   // const user = useRef(null);
   const fetchUserProfile = useCallback(async () => {
@@ -59,9 +60,12 @@ const Header = () => {
                 onClick={handleLogout}
                 className="border px-4 py-2 rounded-md max-w-40 truncate"
               >
-                {user.email && (
+                {isLoading && (
+                  <p className="flex flex-row justify-center">Loading...</p>
+                )}
+                {user !== undefined && (
                   <a href="" className="text-gray-500">
-                    {user.email}
+                    {user.email.split("@")[0]}
                   </a>
                 )}
               </button>
