@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "../components/home-page/Header";
 import InputField from "../components/form-page/InputField";
-import TextArea from "../components/form-page/TextArea";
+import Textarea from "../components/form-page/Textarea";
 import Select from "../components/form-page/Select";
 import SubmitButton from "../components/form-page/SubmitButton";
 import axios from "axios";
@@ -118,7 +118,7 @@ const CampaignFormPage = () => {
             />
 
             {/* Deskripsi */}
-            <TextArea
+            <Textarea
               label="Deskripsi Campaign"
               value={formData.description}
               name="description"

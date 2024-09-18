@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../components/form-page/InputField";
-import TextArea from "../components/form-page/TextArea";
 import SubmitButton from "../components/form-page/SubmitButton";
+import Textarea from "../components/form-page/Textarea";
 import {
   createDonationGuest,
   createDonationRegistered,
 } from "../redux/actions/donationAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createPayment } from "../redux/actions/paymentAction";
 
 const DonationFormPage = () => {
   const dispatch = useDispatch();
-  const navigateTo = useNavigate();
   const { id } = useParams(); // Mengambil id dari URL
 
   // Get state from Redux
-  const donationData = useSelector((state) => state.donations.data);
   const paymentData = useSelector((state) => state.payments.data);
 
   const isRequired = localStorage.getItem("token") ? false : true;
@@ -166,7 +164,7 @@ const DonationFormPage = () => {
           />
 
           {/* Komentar / Dukungan (Opsional) */}
-          <TextArea
+          <Textarea
             label="Komentar / Dukungan (Opsional)"
             value={formData.comment}
             name="comment"
